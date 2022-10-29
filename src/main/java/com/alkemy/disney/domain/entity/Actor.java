@@ -1,4 +1,4 @@
-package com.alkemy.disney.model.entity;
+package com.alkemy.disney.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;

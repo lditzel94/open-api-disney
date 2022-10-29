@@ -1,4 +1,4 @@
-package com.alkemy.disney.model.entity;
+package com.alkemy.disney.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
