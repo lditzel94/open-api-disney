@@ -1,7 +1,13 @@
 package com.alkemy.disney.model.entity;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "genre")
 public class Genre {
@@ -14,43 +20,7 @@ public class Genre {
     @Column(name = "image")
     private String image;
 
-    public Genre() {
-    }
+    @OneToMany(mappedBy = "genre")
+    private List<Movie> movies;
 
-    public Genre(Long genreId, String name, String image) {
-        this.genreId = genreId;
-        this.name = name;
-        this.image = image;
-    }
-
-    public Long getGenreId() {
-        return genreId;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    @Override
-    public String toString() {
-        return "Genre{" +
-                "genreId=" + genreId +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }

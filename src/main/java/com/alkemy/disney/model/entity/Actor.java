@@ -1,8 +1,17 @@
 package com.alkemy.disney.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.LAZY;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "actor")
 public class Actor {
@@ -19,63 +28,6 @@ public class Actor {
     @Column(name = "story")
     private String story;
 
-    public Actor() {
-    }
-
-    public Actor(Long id, String image, String age, Double weight, String story) {
-        this.id = id;
-        this.image = image;
-        this.age = age;
-        this.weight = weight;
-        this.story = story;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public void setStory(String story) {
-        this.story = story;
-    }
-
-    @Override
-    public String toString() {
-        return "Actor{" +
-                "id=" + id +
-                ", image='" + image + '\'' +
-                ", age='" + age + '\'' +
-                ", weight=" + weight +
-                ", story='" + story + '\'' +
-                '}';
-    }
+    @ManyToMany(mappedBy = "actors" , fetch = LAZY, cascade=PERSIST)
+    private List<Movie> movies = new ArrayList<>();
 }

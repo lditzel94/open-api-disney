@@ -1,11 +1,16 @@
 package com.alkemy.disney.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-
+import static javax.persistence.FetchType.LAZY;
+@Getter
+@Setter
 @Entity
 @Table(name = "movie")
 public class Movie {
@@ -21,64 +26,16 @@ public class Movie {
     private String creationDate;
     @Column(name = "rating")
     private int rating;
+    @ManyToOne(fetch = LAZY, optional = false)
+    @JoinColumn(name = "genre_id", nullable = false)
+    @JsonIgnore
+    private Genre genre;
 
-    public Movie() {
-    }
+    @JoinTable(name = "movie_actors",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    @ManyToMany(fetch = LAZY)
+    @JsonIgnore
+    private List<Actor> actors = new ArrayList<>();
 
-    public Movie(Long movieId, String image, String title, String creationDate, int rating) {
-        this.movieId = movieId;
-        this.image = image;
-        this.title = title;
-        this.creationDate = creationDate;
-        this.rating = rating;
-    }
-
-    public Long getMovieId() {
-        return movieId;
-    }
-
-
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "movieId=" + movieId +
-                ", image='" + image + '\'' +
-                ", title='" + title + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", rating=" + rating +
-                '}';
-    }
 }
